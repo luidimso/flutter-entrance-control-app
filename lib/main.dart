@@ -4,27 +4,26 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int count = 0;
+
   void decrement() {
-    print("Got out");
+    setState(() {
+      count--;
+    });
   }
 
   void increment() {
-    print("Got in");
+    setState(() {
+      count++;
+    });
   }
 
   @override
@@ -33,10 +32,10 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.green,
       body: Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/wallpaper.webp"),
-              fit: BoxFit.cover
-          )
+            image: DecorationImage(
+                image: AssetImage("assets/images/wallpaper.webp"),
+                fit: BoxFit.cover
+            )
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,11 +45,11 @@ class HomePage extends StatelessWidget {
               style: TextStyle(
                   fontSize: 30, color: Colors.white, fontWeight: FontWeight.w700),
             ),
-            const Padding(
-              padding: EdgeInsets.all(32),
+            Padding(
+              padding: const EdgeInsets.all(32),
               child: Text(
-                "0",
-                style: TextStyle(fontSize: 100, color: Colors.white),
+                count.toString(),
+                style: const TextStyle(fontSize: 100, color: Colors.white),
               ),
             ),
             Row(
@@ -92,6 +91,19 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
