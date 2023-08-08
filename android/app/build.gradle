@@ -31,6 +31,8 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+//https://docs.flutter.dev/deployment/android
+
 
 android {
     namespace "com.luidimso.entrance_control_app"
