@@ -26,6 +26,9 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  bool get isEmpty => count == 0;
+  bool get isFull => count >= 20;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,25 +43,31 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Can go in!",
+            Text(
+              isFull ? "It is full" : "Can go in!",
               style: TextStyle(
-                  fontSize: 30, color: Colors.white, fontWeight: FontWeight.w700),
+                  fontSize: 30,
+                  color: isFull ? Colors.red : Colors.white,
+                  fontWeight: FontWeight.w700
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(32),
               child: Text(
                 count.toString(),
-                style: const TextStyle(fontSize: 100, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 100,
+                    color: isFull ? Colors.red : Colors.white
+                ),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  onPressed: decrement,
+                  onPressed: isEmpty ? null : decrement,
                   style: TextButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: isEmpty ? Colors.white.withOpacity(0.2) : Colors.white,
                       fixedSize: const Size(100, 100),
                       foregroundColor: Colors.black,
                       shape: RoundedRectangleBorder(
@@ -73,9 +82,9 @@ class _HomePageState extends State<HomePage> {
                   width: 32,
                 ),
                 TextButton(
-                    onPressed: increment,
+                    onPressed: isFull ? null : increment,
                     style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
+                        backgroundColor: isFull ? Colors.white.withOpacity(0.2) : Colors.white,
                         fixedSize: const Size(100, 100),
                         foregroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
